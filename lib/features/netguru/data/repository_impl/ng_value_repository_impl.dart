@@ -76,4 +76,22 @@ class NGValueRepositoryImplementation implements NGValueRepository {
       return Left(CacheFailure(ErrorStrings.errorRemovingValue, e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, int>> getTheme() async {
+    try {
+      return Right(await ngValueLocalDataSource.getTheme());
+    } catch (e) {
+      return Left(CacheFailure(ErrorStrings.errorGettingTheme, e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> saveTheme(int value) async {
+    try {
+      return Right(await ngValueLocalDataSource.setTheme(value));
+    } catch (e) {
+      return Left(CacheFailure(ErrorStrings.errorGettingTheme, e.toString()));
+    }
+  }
 }

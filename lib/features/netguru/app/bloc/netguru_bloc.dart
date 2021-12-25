@@ -26,8 +26,8 @@ class NetguruBloc extends Bloc<NetguruEvent, NetguruState> {
     required this.removeFromFavourites,
     required this.removeFromValues,
   }) : super(NetguruInitial()) {
-    on<NetguruEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<NetguruEvent>(_onEvent);
   }
+
+  _onEvent(NetguruEvent event, Emitter<NetguruState> emit) async {}
 }

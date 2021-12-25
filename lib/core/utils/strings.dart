@@ -14,5 +14,6 @@ class ErrorStrings {
       errorGettingFavourites = 'Failed to get favourites',
       errorGettingValues = 'Failed to get Values',
       errorRemovingFavourite = 'Failed to Remove Favourite',
-      errorRemovingValue = 'Failed to Remove Value';
+      errorRemovingValue = 'Failed to Remove Value',
+      errorGettingTheme = 'Failed to get theme';
 }

@@ -8,4 +8,6 @@ abstract class NGValueRepository {
   Future<Either<Failure, List<String>>> addToValues(String value);
   Future<Either<Failure, List<String>>> removeFromValues(String value);
   Future<Either<Failure, List<String>>> getMyValues();
+  Future<Either<Failure, int>> saveTheme(int value);
+  Future<Either<Failure, int>> getTheme();
 }
