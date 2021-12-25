@@ -1,6 +1,5 @@
 import 'package:netguru_values/core/utils/strings.dart';
 import 'package:netguru_values/features/netguru/data/sources/ng_local_data_source.dart';
-import 'package:netguru_values/features/netguru/domain/entities/ng_values.dart';
 import 'package:netguru_values/core/failures/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:netguru_values/features/netguru/domain/repository/ng_value_repository.dart';
@@ -11,8 +10,7 @@ class NGValueRepositoryImplementation implements NGValueRepository {
   NGValueRepositoryImplementation(this.ngValueLocalDataSource);
 
   @override
-  Future<Either<Failure, List<NGValues>>> addToFavourites(
-      NGValues value) async {
+  Future<Either<Failure, List<String>>> addToFavourites(String value) async {
     //check for network connection
     //perform error handling to ascertain if there was
     // no issue during the process and trigger the local data source
@@ -20,8 +18,7 @@ class NGValueRepositoryImplementation implements NGValueRepository {
     try {
       //call local data source to cache prayer
       //and return a boolean object indicating success
-      return Right(
-          await ngValueLocalDataSource.addToFavourites(value.toValueModel()));
+      return Right(await ngValueLocalDataSource.addToFavourites(value));
     } catch (e) {
       //if there is an error during this operation
       //then return the left side of the Either-type with
@@ -33,17 +30,16 @@ class NGValueRepositoryImplementation implements NGValueRepository {
   }
 
   @override
-  Future<Either<Failure, List<NGValues>>> addToValues(NGValues value) async {
+  Future<Either<Failure, List<String>>> addToValues(String value) async {
     try {
-      return Right(
-          await ngValueLocalDataSource.addToValues(value.toValueModel()));
+      return Right(await ngValueLocalDataSource.addToValues(value));
     } catch (e) {
       return Left(CacheFailure(ErrorStrings.errorAddingToValues, e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, List<NGValues>>> getFavourites() async {
+  Future<Either<Failure, List<String>>> getFavourites() async {
     try {
       return Right(await ngValueLocalDataSource.getFavourites());
     } catch (e) {
@@ -53,7 +49,7 @@ class NGValueRepositoryImplementation implements NGValueRepository {
   }
 
   @override
-  Future<Either<Failure, List<NGValues>>> getMyValues() async {
+  Future<Either<Failure, List<String>>> getMyValues() async {
     try {
       return Right(await ngValueLocalDataSource.getMyValues());
     } catch (e) {
@@ -62,11 +58,10 @@ class NGValueRepositoryImplementation implements NGValueRepository {
   }
 
   @override
-  Future<Either<Failure, List<NGValues>>> removeFromFavourites(
-      NGValues value) async {
+  Future<Either<Failure, List<String>>> removeFromFavourites(
+      String value) async {
     try {
-      return Right(await ngValueLocalDataSource
-          .removeFromFavourites(value.toValueModel()));
+      return Right(await ngValueLocalDataSource.removeFromFavourites(value));
     } catch (e) {
       return Left(
           CacheFailure(ErrorStrings.errorRemovingFavourite, e.toString()));
@@ -74,11 +69,9 @@ class NGValueRepositoryImplementation implements NGValueRepository {
   }
 
   @override
-  Future<Either<Failure, List<NGValues>>> removeFromValues(
-      NGValues value) async {
+  Future<Either<Failure, List<String>>> removeFromValues(String value) async {
     try {
-      return Right(
-          await ngValueLocalDataSource.removeFromValues(value.toValueModel()));
+      return Right(await ngValueLocalDataSource.removeFromValues(value));
     } catch (e) {
       return Left(CacheFailure(ErrorStrings.errorRemovingValue, e.toString()));
     }
