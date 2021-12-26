@@ -28,3 +28,9 @@ class RemoveFromFavouritesEvent extends NetguruEvent {
 
   const RemoveFromFavouritesEvent(this.value);
 }
+
+class RemoveFromValuesEvent extends NetguruEvent {
+  final String value;
+
+  const RemoveFromValuesEvent(this.value);
+}

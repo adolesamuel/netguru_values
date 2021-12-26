@@ -14,6 +14,7 @@ class ValuesPage extends StatefulWidget {
 class _ValuesPageState extends State<ValuesPage> {
   NetguruBloc ngBloc = sl<NetguruBloc>();
   List<String> valuesToDisplay = [];
+  List<String> myValues = [];
 
   @override
   void initState() {
@@ -29,7 +30,10 @@ class _ValuesPageState extends State<ValuesPage> {
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetMyValuesResult) {
-            valuesToDisplay.addAll(state.values);
+            myValues = state.values;
+            valuesToDisplay.addAll(myValues);
+          } else if (state is RemoveFromValuesResult) {
+            ngBloc.add(GetMyValuesEvent());
           }
         },
         builder: (context, state) {
@@ -44,6 +48,19 @@ class _ValuesPageState extends State<ValuesPage> {
                     return ListTile(
                       leading: Text((index + 1).toString()),
                       title: Text(valuesToDisplay[index]),
+                      trailing: myValues.contains(valuesToDisplay[index])
+                          ? IconButton(
+                              icon: const Icon(
+                                Icons.cancel,
+                                color: Colors.red,
+                              ),
+                              onPressed: () {
+                                print('values is being removed');
+                                ngBloc.add(RemoveFromValuesEvent(
+                                    valuesToDisplay[index]));
+                              },
+                            )
+                          : null,
                     );
                   }));
         },

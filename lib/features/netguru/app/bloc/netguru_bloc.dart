@@ -64,6 +64,12 @@ class NetguruBloc extends Bloc<NetguruEvent, NetguruState> {
 
       emit(removeFromFavouritesOrError.fold((l) => RemoveFromFavouritesError(l),
           (r) => RemoveFromFavouritesResult(r)));
+    } else if (event is RemoveFromValuesEvent) {
+      final removeFromValuesOrError =
+          await removeFromValues(NGValueParams(event.value));
+
+      emit(removeFromValuesOrError.fold(
+          (l) => RemoveFromValuesError(l), (r) => RemoveFromValuesResult(r)));
     }
   }
 }

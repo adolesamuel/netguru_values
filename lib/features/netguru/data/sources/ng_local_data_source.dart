@@ -186,7 +186,7 @@ class NGValueLocalDataSourceImpl implements NGValueLocalDataSource {
         valuesList.remove(value);
 
         //you have to put the new list in place of the old one.
-        await box.put('favourite', valuesList);
+        await box.put('value', valuesList);
       }
       return valuesList;
     } catch (e) {

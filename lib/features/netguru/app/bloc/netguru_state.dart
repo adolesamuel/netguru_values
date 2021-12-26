@@ -72,3 +72,15 @@ class RemoveFromFavouritesResult extends NetguruState {
 
   const RemoveFromFavouritesResult(this.values);
 }
+
+class RemoveFromValuesError extends NetguruState {
+  final Failure failure;
+
+  const RemoveFromValuesError(this.failure);
+}
+
+class RemoveFromValuesResult extends NetguruState {
+  final List<String> values;
+
+  const RemoveFromValuesResult(this.values);
+}
