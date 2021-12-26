@@ -5,6 +5,7 @@ import 'package:netguru_values/features/netguru/app/pages/add_values_page.dart';
 import 'package:netguru_values/features/netguru/app/pages/values_list_page.dart';
 import 'package:netguru_values/features/netguru/app/widgets/favourite_list_item.dart';
 
+///Draggable Scrollable sheet for favourites
 class FavouritesPage extends StatefulWidget {
   final String activeValue;
   const FavouritesPage({

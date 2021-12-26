@@ -8,11 +8,13 @@ import 'injection_container.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //initialize hive
   await Hive.initFlutter();
 
   //Get theme data from Hive.
   await Hive.openBox('theme');
 
+//set up dependency injection
   await di.init();
 
   runApp(const MyApp());
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //Value listenable for theme
     return ValueListenableBuilder<ThemeMode>(
         valueListenable: themeNotifier,
         builder: (context, ThemeMode currentTheme, _) {

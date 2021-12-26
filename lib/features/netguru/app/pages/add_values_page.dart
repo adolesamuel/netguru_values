@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 import 'package:netguru_values/injection_container.dart';
 
+///Page for adding new values to database
 class AddValuesPage extends StatefulWidget {
   const AddValuesPage({Key? key}) : super(key: key);
 
