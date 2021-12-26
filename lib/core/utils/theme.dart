@@ -29,7 +29,7 @@ class ThemeClass {
           backgroundColor: Colors.black));
 }
 
-class ThemeChanger with ChangeNotifier {
+class ThemeChanger extends ChangeNotifier {
   //get instance of theme from hive
   // 0 = system, 1 = light mode, 2 = dark mode
 
@@ -42,15 +42,25 @@ class ThemeChanger with ChangeNotifier {
     _saveTheme = SaveTheme(ngRepo);
   }
 
-  get getTheme => _getTheme(NoParams());
+  Future<ThemeMode> getTheme() async {
+    final value = await _getTheme.value(NoParams());
 
-  setTheme(ThemeMode themeMode) async {
+    if (value == 0) {
+      return ThemeMode.system;
+    } else if (value == 1) {
+      return ThemeMode.light;
+    } else {
+      return ThemeMode.dark;
+    }
+  }
+
+  void setTheme(ThemeMode themeMode) async {
     if (themeMode == ThemeMode.system) {
-      _saveTheme(const SaveThemeParams(0));
+      _saveTheme.value(const SaveThemeParams(0));
     } else if (themeMode == ThemeMode.light) {
-      _saveTheme(const SaveThemeParams(1));
+      _saveTheme.value(const SaveThemeParams(1));
     } else if (themeMode == ThemeMode.dark) {
-      _saveTheme(const SaveThemeParams(2));
+      _saveTheme.value(const SaveThemeParams(2));
     }
     notifyListeners();
   }

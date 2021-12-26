@@ -1,16 +1,13 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:netguru_values/core/failures/failure.dart';
-import 'package:netguru_values/core/usecase/usecase.dart';
 import 'package:netguru_values/features/netguru/domain/repository/ng_value_repository.dart';
 
-class SaveTheme extends Usecase<int, SaveThemeParams> {
+class SaveTheme {
   final NGValueRepository ngValueRepository;
 
   SaveTheme(this.ngValueRepository);
-  @override
-  Future<Either<Failure, int>> call(SaveThemeParams params) {
-    return ngValueRepository.saveTheme(params.value);
+
+  Future<int> value(SaveThemeParams params) async {
+    return await ngValueRepository.saveTheme(params.value);
   }
 }
 

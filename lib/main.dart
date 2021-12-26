@@ -9,6 +9,9 @@ void main() async {
 
   await Hive.initFlutter();
 
+  //Get theme data from Hive.
+  await Hive.openBox('theme');
+
   await di.init();
 
   runApp(const MyApp());
