@@ -53,9 +53,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
         },
         builder: (context, state) {
           return DraggableScrollableSheet(
-            initialChildSize: 0.15,
-            minChildSize: 0.13,
+            initialChildSize: 0.20,
+            minChildSize: 0.19,
             maxChildSize: 0.8,
+            snapSizes: [0.19, 0.70],
             builder: (context, scrollController) {
               return Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
@@ -67,10 +68,28 @@ class _FavouritesPageState extends State<FavouritesPage> {
                       pinned: true,
                       snap: false,
                       floating: false,
-                      expandedHeight: 150.0,
-                      collapsedHeight: 150.0,
+                      expandedHeight: 170.0,
+                      collapsedHeight: 170.0,
                       flexibleSpace: Column(
                         children: [
+                          Expanded(
+                            child: IconButton(
+                              padding: EdgeInsets.zero,
+                              //Adding response to scrolling gestures
+                              icon: ValueListenableBuilder<bool>(
+                                  valueListenable: scrollController
+                                      .position.isScrollingNotifier,
+                                  builder: (context, value, widget) {
+                                    if (value) {
+                                      return const Icon(Icons.remove);
+                                    } else {
+                                      return const Icon(
+                                          Icons.expand_less_outlined);
+                                    }
+                                  }),
+                              onPressed: () {},
+                            ),
+                          ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
