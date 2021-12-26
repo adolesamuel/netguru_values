@@ -6,3 +6,5 @@ abstract class NetguruEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetMyValuesEvent extends NetguruEvent {}

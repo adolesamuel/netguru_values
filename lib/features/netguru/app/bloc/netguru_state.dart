@@ -8,3 +8,15 @@ abstract class NetguruState extends Equatable {
 }
 
 class NetguruInitial extends NetguruState {}
+
+class GetMyValuesFailure extends NetguruState {
+  final Failure failure;
+
+  const GetMyValuesFailure(this.failure);
+}
+
+class GetMyValuesResult extends NetguruState {
+  final List<String> values;
+
+  const GetMyValuesResult(this.values);
+}
