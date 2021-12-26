@@ -57,7 +57,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
             initialChildSize: 0.20,
             minChildSize: 0.19,
             maxChildSize: 0.8,
-            snapSizes: [0.19, 0.70],
             builder: (context, scrollController) {
               return Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
@@ -150,6 +149,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                         ],
                       ),
                     ),
+
+                    //Nested list view here
                     SliverList(
                         delegate: SliverChildListDelegate([
                       ListView.separated(

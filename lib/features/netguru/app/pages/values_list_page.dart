@@ -51,18 +51,20 @@ class _ValuesPageState extends State<ValuesPage> {
                     return ListTile(
                       leading: Text((index + 1).toString()),
                       title: Text(valuesToDisplay[index]),
-                      trailing: myValues.contains(valuesToDisplay[index])
-                          ? IconButton(
-                              icon: const Icon(
-                                Icons.cancel,
-                                color: Colors.red,
-                              ),
-                              onPressed: () {
-                                ngBloc.add(RemoveFromValuesEvent(
-                                    valuesToDisplay[index]));
-                              },
-                            )
-                          : null,
+                      trailing:
+                          //Code to only show remove button on saved values
+                          myValues.contains(valuesToDisplay[index])
+                              ? IconButton(
+                                  icon: const Icon(
+                                    Icons.cancel,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    ngBloc.add(RemoveFromValuesEvent(
+                                        valuesToDisplay[index]));
+                                  },
+                                )
+                              : null,
                     );
                   }));
         },

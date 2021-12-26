@@ -18,6 +18,7 @@ class NetGuruLandingPage extends StatefulWidget {
 
 class _NetGuruLandingPageState extends State<NetGuruLandingPage>
     with TickerProviderStateMixin {
+  //Animation that provides integer values for switching
   late Animation<int> animation;
   late AnimationController controller;
   late int seconds;
@@ -47,9 +48,6 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
   @override
   void didUpdateWidget(covariant NetGuruLandingPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // if (widget.valuesList.length != oldWidget.valuesList.length) {
-    //   displayedList = widget.valuesList;
-    // }
     controller.dispose();
 
     displayedList = oldWidget.valuesList;
@@ -80,7 +78,6 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetMyValuesResult) {
-            print('responding to get myValuesreslut');
             displayedList = [];
             displayedList.addAll(widget.valuesList);
             displayedList.add(state.values.last);
@@ -114,12 +111,14 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
                     child: AnimatedBuilder(
                       animation: controller,
                       builder: (context, _) {
+                        //Main Text Widget here
                         return TextDisplay(
                             text: displayedList[animation.value]);
                       },
                     ),
                   ),
                 ),
+                //Draggable Scrollable Favourites page
                 FavouritesPage(
                   activeValue: displayedList[animation.value],
                 ),
