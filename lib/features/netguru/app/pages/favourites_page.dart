@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 import 'package:netguru_values/features/netguru/app/pages/add_values_page.dart';
 import 'package:netguru_values/features/netguru/app/pages/values_list_page.dart';
+import 'package:netguru_values/features/netguru/app/widgets/favourite_list_item.dart';
 import 'package:netguru_values/injection_container.dart';
 
 class FavouritesPage extends StatefulWidget {
@@ -43,11 +44,11 @@ class _FavouritesPageState extends State<FavouritesPage> {
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetFavouritesResult) {
-            listToDisplay.addAll(state.values);
-          } else if (state is AddToFavouritesResult) {
-            listToDisplay.add(state.values.last);
-          } else if (state is RemoveFromFavouritesResult) {
             listToDisplay = state.values;
+          } else if (state is AddToFavouritesResult) {
+            ngBloc.add(GetFavouritesEvent());
+          } else if (state is RemoveFromFavouritesResult) {
+            ngBloc.add(GetFavouritesEvent());
           }
         },
         builder: (context, state) {
@@ -57,10 +58,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
             maxChildSize: 0.8,
             builder: (context, scrollController) {
               return Container(
-                color: Theme.of(context)
-                    .scaffoldBackgroundColor
-                    .withOpacity(0.95)
-                    .withAlpha(200),
+                color: Theme.of(context).scaffoldBackgroundColor,
                 height: MediaQuery.of(context).size.height,
                 child: CustomScrollView(
                   controller: scrollController,
@@ -134,9 +132,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           primary: false,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(listToDisplay[index]),
-                            );
+                            return FavouriteListItem(
+                                value: listToDisplay[index]);
                           },
                           separatorBuilder: (context, index) => const Divider(),
                           itemCount: listToDisplay.length),
