@@ -80,16 +80,7 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
           Center(
             child: Padding(
               padding: const EdgeInsets.all(32.0),
-              child:
-                  //  TweenAnimationBuilder<int>(
-                  //   //  onEnd: () => controller.repeat(),
-                  //   tween: IntTween(begin: 0, end: defaultValues.length - 1),
-                  //   duration: const Duration(seconds: 20),
-                  //   builder: (context, value, child) {
-                  //     return TextDisplay(text: defaultValues[value]);
-                  //   },
-                  // ),
-                  AnimatedBuilder(
+              child: AnimatedBuilder(
                 animation: controller,
                 builder: (context, _) {
                   return Text(
