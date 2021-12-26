@@ -57,7 +57,6 @@ class _ValuesPageState extends State<ValuesPage> {
                                 color: Colors.red,
                               ),
                               onPressed: () {
-                                print('values is being removed');
                                 ngBloc.add(RemoveFromValuesEvent(
                                     valuesToDisplay[index]));
                               },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Custom Text Widget for styling
 class TextDisplay extends StatefulWidget {
   final String text;
   const TextDisplay({Key? key, required this.text}) : super(key: key);

@@ -4,7 +4,6 @@ import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 import 'package:netguru_values/features/netguru/app/pages/add_values_page.dart';
 import 'package:netguru_values/features/netguru/app/pages/values_list_page.dart';
 import 'package:netguru_values/features/netguru/app/widgets/favourite_list_item.dart';
-import 'package:netguru_values/injection_container.dart';
 
 class FavouritesPage extends StatefulWidget {
   final String activeValue;
@@ -18,13 +17,14 @@ class FavouritesPage extends StatefulWidget {
 }
 
 class _FavouritesPageState extends State<FavouritesPage> {
-  NetguruBloc ngBloc = sl<NetguruBloc>();
+  late NetguruBloc ngBloc;
 
   List<String> listToDisplay = [];
 
   @override
   void initState() {
     super.initState();
+    ngBloc = BlocProvider.of<NetguruBloc>(context);
     ngBloc.add(GetFavouritesEvent());
   }
 
