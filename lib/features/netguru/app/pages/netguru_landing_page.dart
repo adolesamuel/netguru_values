@@ -32,7 +32,7 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
     super.initState();
     displayedList = widget.valuesList;
 
-    seconds = widget.valuesList.length * 3;
+    seconds = widget.valuesList.length * 5;
     controller =
         AnimationController(duration: Duration(seconds: seconds), vsync: this);
     animation = IntTween(begin: 0, end: widget.valuesList.length - 1)
