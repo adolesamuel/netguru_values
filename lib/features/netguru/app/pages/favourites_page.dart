@@ -76,17 +76,19 @@ class _FavouritesPageState extends State<FavouritesPage> {
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               //Adding response to scrolling gestures
-                              icon: ValueListenableBuilder<bool>(
-                                  valueListenable: scrollController
-                                      .position.isScrollingNotifier,
-                                  builder: (context, value, widget) {
-                                    if (value) {
-                                      return const Icon(Icons.remove);
-                                    } else {
-                                      return const Icon(
-                                          Icons.expand_less_outlined);
-                                    }
-                                  }),
+                              icon: scrollController.hasClients
+                                  ? ValueListenableBuilder<bool>(
+                                      valueListenable: scrollController
+                                          .position.isScrollingNotifier,
+                                      builder: (context, value, widget) {
+                                        if (value) {
+                                          return const Icon(Icons.remove);
+                                        } else {
+                                          return const Icon(
+                                              Icons.expand_less_outlined);
+                                        }
+                                      })
+                                  : const Icon(Icons.expand_less_outlined),
                               onPressed: () {},
                             ),
                           ),
