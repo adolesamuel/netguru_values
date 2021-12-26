@@ -14,3 +14,11 @@ class AddToValuesEvent extends NetguruEvent {
 
   const AddToValuesEvent(this.value);
 }
+
+class AddToFavouritesEvent extends NetguruEvent {
+  final String value;
+
+  const AddToFavouritesEvent(this.value);
+}
+
+class GetFavouritesEvent extends NetguruEvent {}

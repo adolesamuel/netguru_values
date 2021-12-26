@@ -45,6 +45,19 @@ class NetguruBloc extends Bloc<NetguruEvent, NetguruState> {
 
       emit(addToValueOrError.fold(
           (l) => AddToValueFailure(l), (r) => AddToValueResult(r)));
+    } else if (event is AddToFavouritesEvent) {
+      emit(AddToFavouritesLoading());
+
+      final addToValueOrError =
+          await addToFavourites(NGValueParams(event.value));
+
+      emit(addToValueOrError.fold(
+          (l) => AddToFavouritesFailure(l), (r) => AddToFavouritesResult(r)));
+    } else if (event is GetFavouritesEvent) {
+      final getMyValuesOrError = await getFavourites(NoParams());
+
+      emit(getMyValuesOrError.fold(
+          (l) => GetFavouritesFailure(l), (r) => GetFavouritesResult(r)));
     }
   }
 }

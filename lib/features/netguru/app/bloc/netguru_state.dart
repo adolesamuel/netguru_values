@@ -34,3 +34,29 @@ class AddToValueResult extends NetguruState {
 
   const AddToValueResult(this.values);
 }
+
+class AddToFavouritesLoading extends NetguruState {}
+
+class AddToFavouritesFailure extends NetguruState {
+  final Failure failure;
+
+  const AddToFavouritesFailure(this.failure);
+}
+
+class AddToFavouritesResult extends NetguruState {
+  final List<String> values;
+
+  const AddToFavouritesResult(this.values);
+}
+
+class GetFavouritesFailure extends NetguruState {
+  final Failure failure;
+
+  const GetFavouritesFailure(this.failure);
+}
+
+class GetFavouritesResult extends NetguruState {
+  final List<String> values;
+
+  const GetFavouritesResult(this.values);
+}
