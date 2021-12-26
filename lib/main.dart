@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:netguru_values/core/utils/theme.dart';
 import 'package:netguru_values/features/netguru/app/pages/netguru_landing_page.dart';
+import 'package:netguru_values/features/precache_page.dart';
 import 'injection_container.dart' as di;
 
 void main() async {
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             themeMode: currentTheme,
             theme: ThemeClass.lightTheme,
             darkTheme: ThemeClass.darkTheme,
-            home: const NetGuruLandingPage(),
+            home: const PreCachePage(),
           );
         });
   }

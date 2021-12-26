@@ -82,7 +82,9 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const ValuesPage()));
+                                                const ValuesPage())).then(
+                                        (value) =>
+                                            ngBloc.add(GetMyValuesEvent()));
                                   },
                                   child: const Text(
                                     'Values',
@@ -109,7 +111,9 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const AddValuesPage()));
+                                                const AddValuesPage())).then(
+                                        (value) =>
+                                            ngBloc.add(GetMyValuesEvent()));
                                   },
                                   child: const Text(
                                     'Add',

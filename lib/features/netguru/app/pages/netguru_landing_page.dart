@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:netguru_values/core/utils/list.dart';
 import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 import 'package:netguru_values/features/netguru/app/pages/favourites_page.dart';
 import 'package:netguru_values/features/netguru/app/widgets/text_display.dart';
@@ -9,7 +8,9 @@ import 'package:netguru_values/main.dart';
 
 ///Landing page showing display data
 class NetGuruLandingPage extends StatefulWidget {
-  const NetGuruLandingPage({Key? key}) : super(key: key);
+  final List<String> valuesList;
+  const NetGuruLandingPage({Key? key, required this.valuesList})
+      : super(key: key);
 
   @override
   _NetGuruLandingPageState createState() => _NetGuruLandingPageState();
@@ -17,26 +18,50 @@ class NetGuruLandingPage extends StatefulWidget {
 
 class _NetGuruLandingPageState extends State<NetGuruLandingPage>
     with TickerProviderStateMixin {
-  List<String> defaultValues = AppList.values;
-  List<String> valueToDisplay = [];
   late Animation<int> animation;
   late AnimationController controller;
   late int seconds;
 
   NetguruBloc ngBloc = sl<NetguruBloc>();
 
+  List<String> displayedList = [];
+
   @override
   void initState() {
     super.initState();
-    ngBloc.add(GetMyValuesEvent());
-    seconds = AppList.values.length * 3;
+    displayedList = widget.valuesList;
+
+    seconds = widget.valuesList.length * 3;
     controller =
         AnimationController(duration: Duration(seconds: seconds), vsync: this);
-    animation =
-        IntTween(begin: 0, end: defaultValues.length - 1).animate(controller)
-          ..addListener(() {
-            setState(() {});
-          });
+    animation = IntTween(begin: 0, end: widget.valuesList.length - 1)
+        .animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    controller.forward();
+    controller.repeat();
+  }
+
+  @override
+  void didUpdateWidget(covariant NetGuruLandingPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // if (widget.valuesList.length != oldWidget.valuesList.length) {
+    //   displayedList = widget.valuesList;
+    // }
+    controller.dispose();
+
+    displayedList = oldWidget.valuesList;
+
+    seconds = oldWidget.valuesList.length * 3;
+    controller =
+        AnimationController(duration: Duration(seconds: seconds), vsync: this);
+    animation = IntTween(begin: 0, end: oldWidget.valuesList.length - 1)
+        .animate(controller)
+      ..addListener(() {
+        setState(() {});
+      });
 
     controller.forward();
     controller.repeat();
@@ -55,9 +80,11 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetMyValuesResult) {
-            valueToDisplay = [];
-            valueToDisplay.addAll(defaultValues);
-            valueToDisplay.addAll(state.values);
+            print('responding to get myValuesreslut');
+            displayedList = [];
+            displayedList.addAll(widget.valuesList);
+            displayedList.add(state.values.last);
+            didUpdateWidget(NetGuruLandingPage(valuesList: displayedList));
           }
         },
         builder: (context, state) {
@@ -66,11 +93,6 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
               title: const Text('NetGuru Values'),
               elevation: 0,
               actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite),
-                ),
-
                 //Settings Icon
                 IconButton(
                     icon: Icon(MyApp.themeNotifier.value == ThemeMode.light
@@ -93,13 +115,13 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
                       animation: controller,
                       builder: (context, _) {
                         return TextDisplay(
-                            text: defaultValues[animation.value]);
+                            text: displayedList[animation.value]);
                       },
                     ),
                   ),
                 ),
                 FavouritesPage(
-                  activeValue: defaultValues[animation.value],
+                  activeValue: displayedList[animation.value],
                 ),
               ],
             ),
