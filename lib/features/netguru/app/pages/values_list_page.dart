@@ -30,7 +30,9 @@ class _ValuesPageState extends State<ValuesPage> {
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetMyValuesResult) {
+            valuesToDisplay = [];
             myValues = state.values;
+            valuesToDisplay.addAll(AppList.values);
             valuesToDisplay.addAll(myValues);
           } else if (state is RemoveFromValuesResult) {
             ngBloc.add(GetMyValuesEvent());
