@@ -94,7 +94,9 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
               ),
             ),
           ),
-          const FavouritesPage(),
+          FavouritesPage(
+            activeValue: defaultValues[animation.value],
+          ),
         ],
       ),
     );

@@ -6,7 +6,11 @@ import 'package:netguru_values/features/netguru/app/pages/values_list_page.dart'
 import 'package:netguru_values/injection_container.dart';
 
 class FavouritesPage extends StatefulWidget {
-  const FavouritesPage({Key? key}) : super(key: key);
+  final String activeValue;
+  const FavouritesPage({
+    Key? key,
+    required this.activeValue,
+  }) : super(key: key);
 
   @override
   _FavouritesPageState createState() => _FavouritesPageState();
@@ -15,34 +19,21 @@ class FavouritesPage extends StatefulWidget {
 class _FavouritesPageState extends State<FavouritesPage> {
   NetguruBloc ngBloc = sl<NetguruBloc>();
 
-  List<String> favouriteList = [
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-    'Faves',
-  ];
+  List<String> listToDisplay = [];
 
   @override
   void initState() {
     super.initState();
     ngBloc.add(GetFavouritesEvent());
+  }
+
+  ///This is what the big red button does on the favourite page
+  void saveOrRemoveFromFavourites() {
+    if (listToDisplay.contains(widget.activeValue)) {
+      ngBloc.add(RemoveFromFavouritesEvent(widget.activeValue));
+    } else {
+      ngBloc.add(AddToFavouritesEvent(widget.activeValue));
+    }
   }
 
   @override
@@ -52,10 +43,11 @@ class _FavouritesPageState extends State<FavouritesPage> {
       child: BlocConsumer<NetguruBloc, NetguruState>(
         listener: (context, state) {
           if (state is GetFavouritesResult) {
-            favouriteList.addAll(state.values);
-          }
-          if (state is AddToFavouritesResult) {
-            favouriteList.add(state.values.last);
+            listToDisplay.addAll(state.values);
+          } else if (state is AddToFavouritesResult) {
+            listToDisplay.add(state.values.last);
+          } else if (state is RemoveFromFavouritesResult) {
+            listToDisplay = state.values;
           }
         },
         builder: (context, state) {
@@ -65,17 +57,15 @@ class _FavouritesPageState extends State<FavouritesPage> {
             maxChildSize: 0.8,
             builder: (context, scrollController) {
               return Container(
-                color: Colors.blue,
-                // Theme.of(context)
-                //     .scaffoldBackgroundColor
-                //     .withOpacity(0.95)
-                //     .withAlpha(200),
+                color: Theme.of(context)
+                    .scaffoldBackgroundColor
+                    .withOpacity(0.95)
+                    .withAlpha(200),
                 height: MediaQuery.of(context).size.height,
                 child: CustomScrollView(
                   controller: scrollController,
                   slivers: [
                     SliverAppBar(
-                      backgroundColor: Colors.blue,
                       pinned: true,
                       snap: false,
                       floating: false,
@@ -103,10 +93,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
                               //big like button
                               IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
+                                onPressed: saveOrRemoveFromFavourites,
+                                icon: Icon(
                                   Icons.favorite,
-                                  color: Colors.red,
+                                  color:
+                                      listToDisplay.contains(widget.activeValue)
+                                          ? Colors.red
+                                          : Colors.grey,
                                 ),
                                 iconSize: 100.0,
                               ),
@@ -137,20 +130,16 @@ class _FavouritesPageState extends State<FavouritesPage> {
                     ),
                     SliverList(
                         delegate: SliverChildListDelegate([
-                      // const SizedBox(
-                      //   height: 50.0,
-                      // ),
-
                       ListView.separated(
                           primary: false,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(favouriteList[index]),
+                              title: Text(listToDisplay[index]),
                             );
                           },
                           separatorBuilder: (context, index) => const Divider(),
-                          itemCount: favouriteList.length),
+                          itemCount: listToDisplay.length),
                     ])),
                   ],
                 ),

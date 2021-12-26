@@ -22,3 +22,9 @@ class AddToFavouritesEvent extends NetguruEvent {
 }
 
 class GetFavouritesEvent extends NetguruEvent {}
+
+class RemoveFromFavouritesEvent extends NetguruEvent {
+  final String value;
+
+  const RemoveFromFavouritesEvent(this.value);
+}
