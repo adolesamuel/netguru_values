@@ -20,3 +20,17 @@ class GetMyValuesResult extends NetguruState {
 
   const GetMyValuesResult(this.values);
 }
+
+class AddToValueLoading extends NetguruState {}
+
+class AddToValueFailure extends NetguruState {
+  final Failure failure;
+
+  const AddToValueFailure(this.failure);
+}
+
+class AddToValueResult extends NetguruState {
+  final List<String> values;
+
+  const AddToValueResult(this.values);
+}

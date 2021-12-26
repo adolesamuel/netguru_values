@@ -6,6 +6,7 @@ import 'package:netguru_values/features/netguru/domain/usecases/add_to_favorites
 import 'package:netguru_values/features/netguru/domain/usecases/add_to_values.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/get_favorites.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/get_my_values.dart';
+import 'package:netguru_values/features/netguru/domain/usecases/ng_params.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/remove_from_favorites.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/remove_from_values.dart';
 
@@ -37,6 +38,13 @@ class NetguruBloc extends Bloc<NetguruEvent, NetguruState> {
 
       emit(getMyValuesOrError.fold(
           (l) => GetMyValuesFailure(l), (r) => GetMyValuesResult(r)));
+    } else if (event is AddToValuesEvent) {
+      emit(AddToValueLoading());
+
+      final addToValueOrError = await addToValues(NGValueParams(event.value));
+
+      emit(addToValueOrError.fold(
+          (l) => AddToValueFailure(l), (r) => AddToValueResult(r)));
     }
   }
 }

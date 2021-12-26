@@ -8,3 +8,9 @@ abstract class NetguruEvent extends Equatable {
 }
 
 class GetMyValuesEvent extends NetguruEvent {}
+
+class AddToValuesEvent extends NetguruEvent {
+  final String value;
+
+  const AddToValuesEvent(this.value);
+}
