@@ -8,10 +8,9 @@ abstract class NGValueLocalDataSource {
   Future<List<String>> getMyValues();
   Future<List<String>> removeFromFavourites(String value);
   Future<List<String>> removeFromValues(String value);
-  Future<int> setTheme(int value);
-  Future<int> getTheme();
 }
 
+///Implementation of NGValueLocalDataSource
 class NGValueLocalDataSourceImpl implements NGValueLocalDataSource {
   @override
   Future<List<String>> addToFavourites(String value) async {
@@ -189,39 +188,6 @@ class NGValueLocalDataSourceImpl implements NGValueLocalDataSource {
         await box.put('value', valuesList);
       }
       return valuesList;
-    } catch (e) {
-      throw CommonException(e.toString());
-    } finally {
-      box.close();
-    }
-  }
-
-  @override
-  Future<int> getTheme() async {
-    final box = await Hive.openBox('theme');
-
-    try {
-      final value = box.get('theme');
-
-      if (value != null) {
-        return value;
-      } else {
-        var value = 0;
-        return value;
-      }
-    } catch (e) {
-      throw CommonException(e.toString());
-    } finally {
-      box.close();
-    }
-  }
-
-  @override
-  Future<int> setTheme(int value) async {
-    final box = await Hive.openBox('theme');
-    try {
-      await box.put('theme', value);
-      return value;
     } catch (e) {
       throw CommonException(e.toString());
     } finally {

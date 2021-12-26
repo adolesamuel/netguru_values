@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 
+///List items shown in Favourite page.
 class FavouriteListItem extends StatefulWidget {
   final String value;
   const FavouriteListItem({Key? key, required this.value}) : super(key: key);

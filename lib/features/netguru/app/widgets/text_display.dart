@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-///Custom Text Widget for styling
+///Custom Text Widget for Displaying
 class TextDisplay extends StatefulWidget {
   final String text;
   const TextDisplay({Key? key, required this.text}) : super(key: key);
@@ -15,9 +16,7 @@ class _TextDisplayState extends State<TextDisplay> {
     return Text(
       widget.text,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 40.0,
-      ),
+      style: GoogleFonts.getFont('Lato', fontSize: 40.0),
     );
   }
 }

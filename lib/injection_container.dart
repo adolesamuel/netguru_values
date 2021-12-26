@@ -13,10 +13,8 @@ import 'package:netguru_values/features/netguru/domain/usecases/add_to_favorites
 import 'package:netguru_values/features/netguru/domain/usecases/add_to_values.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/get_favorites.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/get_my_values.dart';
-import 'package:netguru_values/features/netguru/domain/usecases/get_theme.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/remove_from_favorites.dart';
 import 'package:netguru_values/features/netguru/domain/usecases/remove_from_values.dart';
-import 'package:netguru_values/features/netguru/domain/usecases/save_theme.dart';
 
 //Calling this GetIt.Instance sl i.e Service Locator
 final sl = GetIt.instance;
@@ -44,8 +42,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => GetMyValues(sl()));
   sl.registerLazySingleton(() => RemoveFromFavourites(sl()));
   sl.registerLazySingleton(() => RemoveFromValues(sl()));
-  sl.registerLazySingleton(() => SaveTheme(sl()));
-  sl.registerLazySingleton(() => GetTheme(sl()));
 
   ///////////////////////////////////////////////////////////////////////////////////
   /// Application [REPOSITORIES]

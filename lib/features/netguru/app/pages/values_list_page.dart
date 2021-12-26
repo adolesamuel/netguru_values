@@ -4,6 +4,7 @@ import 'package:netguru_values/core/utils/list.dart';
 import 'package:netguru_values/features/netguru/app/bloc/netguru_bloc.dart';
 import 'package:netguru_values/injection_container.dart';
 
+///Page for showing list of values
 class ValuesPage extends StatefulWidget {
   const ValuesPage({Key? key}) : super(key: key);
 

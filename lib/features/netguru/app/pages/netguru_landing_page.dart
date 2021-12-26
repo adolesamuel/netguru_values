@@ -7,6 +7,7 @@ import 'package:netguru_values/features/netguru/app/widgets/text_display.dart';
 import 'package:netguru_values/injection_container.dart';
 import 'package:netguru_values/main.dart';
 
+///Landing page showing display data
 class NetGuruLandingPage extends StatefulWidget {
   const NetGuruLandingPage({Key? key}) : super(key: key);
 
@@ -21,8 +22,6 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
   late Animation<int> animation;
   late AnimationController controller;
   late int seconds;
-  // late AnimationController fadeController;
-  // late Animation<double> fadeAnimation;
 
   NetguruBloc ngBloc = sl<NetguruBloc>();
 
@@ -39,33 +38,9 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
             setState(() {});
           });
 
-    // fadeController = AnimationController(
-    //     duration: const Duration(milliseconds: 500), vsync: this);
-    // fadeAnimation = Tween<double>(begin: 0.0, end: 1).animate(fadeController)
-    //   ..addListener(() {
-    //     setState(() {});
-    //   });
-
     controller.forward();
     controller.repeat();
-    // fadeController.forward();
   }
-
-  // @override
-  // void didUpdateWidget(covariant NetGuruLandingPage oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   seconds = valueToDisplay.length * 3;
-  //   controller =
-  //       AnimationController(duration: Duration(seconds: seconds), vsync: this);
-  //   animation =
-  //       IntTween(begin: 0, end: valueToDisplay.length - 1).animate(controller)
-  //         ..addListener(() {
-  //           setState(() {});
-  //         });
-
-  //   controller.forward();
-  //   controller.repeat();
-  // }
 
   @override
   void dispose() {
@@ -118,7 +93,7 @@ class _NetGuruLandingPageState extends State<NetGuruLandingPage>
                       animation: controller,
                       builder: (context, _) {
                         return TextDisplay(
-                            text: valueToDisplay[animation.value]);
+                            text: defaultValues[animation.value]);
                       },
                     ),
                   ),
