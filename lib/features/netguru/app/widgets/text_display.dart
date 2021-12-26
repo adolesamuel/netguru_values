@@ -16,7 +16,10 @@ class _TextDisplayState extends State<TextDisplay> {
       widget.text,
       textAlign: TextAlign.center,
       style: const TextStyle(
-          fontFamily: 'MoonDance', fontSize: 50, fontWeight: FontWeight.bold),
+        fontFamily: 'MoonDance',
+        fontSize: 60,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 }
